@@ -1,6 +1,7 @@
 ;;;; srfi-97.lisp
 
-(cl:in-package :srfi-97.internal)
+(cl:in-package "https://github.com/g000001/srfi-97#internals")
+
 
 (defun srfi-library-name->asdf-system-name (name)
   (destructuring-bind (srfi num &optional name &rest rest)
@@ -9,14 +10,17 @@
     (let ((num (parse-integer (string num))))
       (values (intern (format nil "SRFI-~A" num) :keyword)) )))
 
+
 (defmethod asdf:find-system ((name cons) &optional (error-p t))
   (cond ((string= :srfi (car name))
          (call-next-method (srfi-library-name->asdf-system-name name)
                            error-p ))
         (T (call-next-method)) ))
 
+
 (defun srfiload (name)
   (asdf:oos 'asdf:load-op (asdf:find-system name)) )
+
 
 (defvar *included-srfis*
   '((1     lists   "List Library")
@@ -70,6 +74,7 @@
     (87    case    "=> in case clauses")
     (95    sorting-and-merging     "Sorting and Merging") ))
 
+
 (defvar *omitted-srfis*
   '((0	"Feature-based conditional expansion construct	Modifies semantics of top-level programs.")
     (4	"Homogeneous numeric vector datatypes	Modifies lexical syntax.")
@@ -91,3 +96,6 @@
     (89	"Optional positional and named parameters	Modifies syntax and semantics of application, which cannot be provided by a library. Dependent on lexical syntax modification (SRFI 88).")
     (90	"Extensible hash table constructor	Dependent on lexical syntax modification (SRFI 88).")
     (94	"Type-Restricted Numerical Functions	Dependent on number system modification (SRFI 70).") ))
+
+
+;;; *EOF*

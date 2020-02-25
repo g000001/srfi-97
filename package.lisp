@@ -2,12 +2,18 @@
 
 (cl:in-package :cl-user)
 
-(defpackage :srfi-97
+
+(defpackage "https://github.com/g000001/srfi-97"
   (:use)
   (:export
-   :srfiload
+   srfiload
    *included-srfis*
-   :*omitted-srfis*))
+   *omitted-srfis*))
 
-(defpackage :srfi-97.internal
-  (:use :srfi-97 :cl))
+
+(defpackage "https://github.com/g000001/srfi-97#internals"
+  (:use "https://github.com/g000001/srfi-97"
+        cl))
+
+
+;;; *EOF*
